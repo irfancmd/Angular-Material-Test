@@ -1,0 +1,18 @@
+@for(course of courses; track course.title) {
+<mat-card class="course-card">
+    <mat-card-header>
+        <mat-card-title>{{ course.title }}</mat-card-title>
+    </mat-card-header>
+
+    <img mat-card-image [src]="course.imageUrl" />
+
+    <mat-card-content>
+        <p>{{ course.description }}</p>
+    </mat-card-content>
+
+    <mat-card-actions class="course-actions">
+        <button mat-raised-button [routerLink]="['/', 'course', course.id]">View Course</button>
+        <button mat-raised-button>Edit Course</button>
+    </mat-card-actions>
+</mat-card>
+}

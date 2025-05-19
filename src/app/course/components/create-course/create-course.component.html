@@ -1,0 +1,22 @@
+<mat-horizontal-stepper labelPosition="bottom" [linear]="true">
+    <mat-step errorMessage="Error in course details">
+        <ng-template matStepLabel>Course Details</ng-template>
+
+        <app-create-course-step-1></app-create-course-step-1>
+
+        <div  class="stepper-buttons">
+            <button mat-raised-button matStepperNext>Add Course Lessons</button>
+        </div>
+    </mat-step>
+
+    <mat-step errorMessage="Error in course lessons">
+        <ng-template matStepLabel>Course Lessons</ng-template>
+
+        <app-create-course-step-2></app-create-course-step-2>
+
+        <div  class="stepper-buttons">
+            <button mat-raised-button matStepperPrevious>Back</button>
+            <button mat-raised-button>Create Course</button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>

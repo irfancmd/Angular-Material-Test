@@ -1,0 +1,25 @@
+/* Angular material will automatically generate classes for table columns.
+   We just have to define their styles.
+*/
+
+.mat-column-id {
+    font-style: italic;
+}
+
+.mat-column-title {
+    font-weight: bold;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.collapsed-detail {
+    display: none;
+}
+
+.scrolling-container {
+    max-height: 180px;
+    max-width: 300px;
+    overflow: auto;
+}

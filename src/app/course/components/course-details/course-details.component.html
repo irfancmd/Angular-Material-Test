@@ -1,0 +1,65 @@
+<h1>{{ course?.title }}</h1>
+
+<!-- Using @if or *ngIf with @ViewChild causes some children to stay undefined even in ngAfterViewInit().  -->
+<!-- So, we're using css styles to hide/show elements instead.  -->
+
+<div class="spinner-container" [class.hidden]="!loading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div class="scrolling-container">
+    <!-- The matSortDisableClear directive will remove the clear sort option. -->
+    <table class="lessons-table" [class.hidden]="loading" mat-table [dataSource]="lessons" matSort matSortDisableClear
+        matSortActive="id" matSortDirection="asc" multiTemplateDataRows>
+
+        <ng-container matColumnDef="select" sticky>
+            <th mat-header-cell *matHeaderCellDef>
+                <!-- Note that we have to check selection.hasValue() to avoid checking all checkboxes when both of the array lenghts (selection and lesson) are 0. -->
+                <mat-checkbox [checked]="selection.hasValue() && isAllSelected"
+                    [indeterminate]="selection.hasValue() && !isAllSelected" (change)="toggleAll()"></mat-checkbox>
+            </th>
+
+            <td mat-cell *matCellDef="let lesson" (click)="$event.stopPropagation()">
+                <mat-checkbox [checked]="selection.isSelected(lesson)"
+                    (change)="onLessonCheckboxToggled(lesson)"></mat-checkbox>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="id" sticky>
+            <!-- mat-header-cell directive will add necessary css styles -->
+            <!-- *matHeaderCellDef directive will capture this th element so that angular material library can render it the way it  wants. -->
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+
+            <td mat-cell *matCellDef="let lesson">{{ lesson.id }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+
+            <td mat-cell *matCellDef="let lesson">{{ lesson.title }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+
+            <td mat-cell *matCellDef="let lesson">{{ lesson.description }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let lesson" [attr.colspan]="displayColumns.length">Extra: {{ lesson.description }}
+            </td>
+        </ng-container>
+
+        <!-- The order in which we put columns in the template doesn't matter. Angular Material will use the order provided in the displayColumns array -->
+        <tr mat-header-row *matHeaderRowDef="displayColumns; sticky:true"></tr>
+        <tr mat-row *matRowDef="let lesson; columns: displayColumns" (click)="onToggleLesson(lesson)"></tr>
+
+        <!-- For multi-template data row -->
+        <tr mat-row *matRowDef="let lesson; columns: ['expandedDetail']"
+            [class.collapsed-detail]="lesson !== expandedLesson"></tr>
+
+    </table>
+</div>
+
+<!-- Putting this inside @if causes trouble. So putting it here. -->
+<mat-paginator [pageSize]="3" [pageSizeOptions]="[1, 2, 3]" [length]="course?.lessonCount"></mat-paginator>

@@ -1,0 +1,63 @@
+<div [formGroup]="form" class="course-details-form">
+    <mat-form-field>
+        <mat-label>Course Title</mat-label>
+        
+        <input matInput placeholder="Course Title" formControlName="title" #title>
+
+        <!-- <span matPrefix>+880</span>
+        <span matSuffix>.00</span> -->
+
+        <mat-hint align="end">
+            {{ title.value.length }} / 60
+        </mat-hint>
+
+        @if(courseTitle.errors?.['minlength']) {
+            <mat-error>Course title must contain at least 5 characters</mat-error>
+        }
+    </mat-form-field>
+
+    <mat-radio-group class="course-type" formControlName="courseType">
+        <mat-radio-button value="free">Free</mat-radio-button>
+        <mat-radio-button value="premium">Premium</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field>
+        <mat-label>Course Category</mat-label>
+        <mat-select formControlName="category" placeholder="Select Category">
+            <mat-option>None</mat-option>
+
+            <!-- <mat-optgroup label="Beginners Group">
+                <mat-option value="NewToProgramming">New To Programming</mat-option>
+                <mat-option value="NewToJavascript">New To Javascript</mat-option>
+                <mat-option value="NewToAngular">New To Angular</mat-option>
+            </mat-optgroup> -->
+
+            <mat-option value="Beginner">Beginner</mat-option>
+            <mat-option value="Intermediate">Intermediate</mat-option>
+            <mat-option value="Advanced">Advanced</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Released At</mat-label>
+
+        <input matInput formControlName="releasedAt" placeholder="Released At" [matDatepicker]="releasedAtDatePicker">
+
+        <mat-hint>MM/DD/YYYY</mat-hint>
+
+        <mat-datepicker-toggle matIconSuffix [for]="releasedAtDatePicker"></mat-datepicker-toggle>
+
+        <mat-datepicker #releasedAtDatePicker [dateClass]="highlightDateClass"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="downloadAllowed">
+        Download Allowed ?
+    </mat-checkbox>
+
+    <mat-form-field>
+        <mat-label>Course Description</mat-label>
+        
+        <!-- cdkTextareaAutosize will hide the resize icon since the height will be controlled automatically -->
+        <textarea matInput placeholder="Course Description" formControlName="description" cdkTextareaAutosize [cdkAutosizeMaxRows]="2" [cdkAutosizeMaxRows]="5"></textarea>
+    </mat-form-field>
+</div>
