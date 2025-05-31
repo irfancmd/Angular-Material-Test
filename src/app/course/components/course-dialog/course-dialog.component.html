@@ -1,0 +1,56 @@
+<div class="edit-course-form">
+    <h2 mat-dialog-title>{{ dialogTitle }}</h2>
+
+    <mat-dialog-content [formGroup]="form">
+        <mat-form-field>
+            <mat-label>Course Title</mat-label>
+
+            <input matInput placeholder="Course Title" formControlName="title" #title>
+
+            <mat-hint align="end">
+                {{ title.value.length }} / 60
+            </mat-hint>
+
+            @if(courseTitle.errors?.['minlength']) {
+            <mat-error>Course title must contain at least 5 characters</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Course Category</mat-label>
+            <mat-select formControlName="category" placeholder="Select Category">
+                <mat-option>None</mat-option>
+
+                <mat-option value="Beginner">Beginner</mat-option>
+                <mat-option value="Intermediate">Intermediate</mat-option>
+                <mat-option value="Advanced">Advanced</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Released At</mat-label>
+
+            <input matInput formControlName="releasedAt" placeholder="Released At"
+                [matDatepicker]="releasedAtDatePicker">
+
+            <mat-hint>MM/DD/YYYY</mat-hint>
+
+            <mat-datepicker-toggle matIconSuffix [for]="releasedAtDatePicker"></mat-datepicker-toggle>
+
+            <mat-datepicker #releasedAtDatePicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Course Description</mat-label>
+
+            <textarea matInput placeholder="Course Description" formControlName="description" cdkTextareaAutosize
+                [cdkAutosizeMaxRows]="2" [cdkAutosizeMaxRows]="5"></textarea>
+        </mat-form-field>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button mat-raised-button (click)="close()">Close</button>
+        <button mat-raised-button (click)="save()">Save</button>
+    </mat-dialog-actions>
+</div>

@@ -4,5 +4,6 @@ export interface Course {
     description?: string
     imageUrl?: string;
     difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+    releasedAt?: Date;
     lessonCount: number;
 }

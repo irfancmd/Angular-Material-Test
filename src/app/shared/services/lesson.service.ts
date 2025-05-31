@@ -21,6 +21,10 @@ export class LessonService {
 
   constructor() { }
 
+  getAllLessons(): Observable<Lesson[]> {
+    return of(LESSON_DATA);
+  }
+
   getLessonsByCourseId(courseId: number): Observable<Lesson[]> {
     return of(LESSON_DATA).pipe(map(lessons => lessons.filter(lesson => lesson.courseId === courseId)));
   }

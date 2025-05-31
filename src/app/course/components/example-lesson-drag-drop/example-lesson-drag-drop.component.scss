@@ -1,0 +1,14 @@
+@use "../../../shared/scss/mixins" as *;
+
+@include custom-drag-drop();
+
+.lessons, .lessons-completed {
+    flex-basis: 50%;
+    border: 1px solid black;
+}
+
+.lesson-drag-drop-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}

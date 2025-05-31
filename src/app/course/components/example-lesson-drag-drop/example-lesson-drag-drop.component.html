@@ -1,0 +1,25 @@
+<h1>Example: Lessons Drag Drop</h1>
+
+<div class="lesson-drag-drop-container" cdkDropListGroup>
+    <div class="lessons drag-drop-list" cdkDropList [cdkDropListData]="lessons"
+        (cdkDropListDropped)="onLessonItemDroppedMultiList($event)">
+
+        @for(lesson of lessons; track lesson.id) {
+        <div class="lesson drag-drop-item" cdkDrag>
+            <div class="drop-placeholder" *cdkDragPlaceholder></div>
+            {{ lesson.title }}
+        </div>
+        }
+    </div>
+
+    <div class="lessons-completed drag-drop-list" cdkDropList [cdkDropListData]="lessonsCompleted"
+        (cdkDropListDropped)="onLessonItemDroppedMultiList($event)">
+
+        @for(lesson of lessonsCompleted; track lesson.id) {
+        <div class="lesson drag-drop-item" cdkDrag>
+            <div class="drop-placeholder" *cdkDragPlaceholder></div>
+            {{ lesson.title }}
+        </div>
+        }
+    </div>
+</div>

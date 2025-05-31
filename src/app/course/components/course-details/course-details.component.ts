@@ -1,5 +1,4 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { every, finalize, merge, Observable, Subject, take, takeUntil, takeWhile, tap } from 'rxjs';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -16,7 +15,7 @@ import { Lesson } from '../../models/lesson.model';
 
 @Component({
   selector: 'app-course-details',
-  imports: [AsyncPipe, MatTableModule, MatProgressSpinnerModule, MatPaginatorModule, MatSortModule, MatCheckboxModule],
+  imports: [MatTableModule, MatProgressSpinnerModule, MatPaginatorModule, MatSortModule, MatCheckboxModule],
   templateUrl: './course-details.component.html',
   styleUrl: './course-details.component.scss'
 })
