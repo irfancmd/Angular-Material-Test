@@ -16,6 +16,8 @@ export class CourseDialogService {
 
     config.disableClose = true;
     config.autoFocus = true;
+    config.panelClass = 'custom-responsive-dialog-panel';
+    config.backdropClass = 'custom-backdrop';
     config.data = { ...course };
 
     const dialogRef = this.dialog.open(CourseDialogComponent, config);
