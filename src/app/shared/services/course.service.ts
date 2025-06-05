@@ -29,6 +29,10 @@ export class CourseService {
       map(courses => courses.filter(course => course.difficulty !== 'Beginner')));
   }
 
+  getAllCourses(): Observable<Course[]> {
+    return of(COURSE_DATA);
+  }
+
   getCourseById(courseId: number): Observable<Course | undefined> {
     return of(COURSE_DATA).pipe(
       switchMap(courses => of(courses.find(course => course.id === courseId))));

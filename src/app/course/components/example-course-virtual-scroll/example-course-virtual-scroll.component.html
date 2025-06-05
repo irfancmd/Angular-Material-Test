@@ -1,0 +1,27 @@
+<!-- 
+    By default, Angular will render all <div> elements of this scrollable container,
+    even the ones that are not visible in the viewport. This can lead to performance issues
+    when the number of elements is large. To avoid this, we can use Angular Material's
+    virtual scroll feature, which only renders the elements that are currently visible in the viewport.
+
+    Keep in mind that in lot of cases, pagination is a better solution than virtual scroll.
+-->
+
+<!-- This traditional method renders all divs -->
+
+<!-- <div class="course-list-container">
+    @for(course of courses; track course) {
+        <div>
+            {{ course }}
+        </div>
+    }
+</div> -->
+
+<cdk-virtual-scroll-viewport
+    class="course-list-container"
+    itemSize="50"
+>
+    <div class="course-list-item" *cdkVirtualFor="let course of courses">
+        {{ course }}
+    </div>
+</cdk-virtual-scroll-viewport>

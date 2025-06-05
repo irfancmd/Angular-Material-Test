@@ -1,0 +1,70 @@
+<h1>Example: Course Tree</h1>
+
+<h2>Nested Tree Demo</h2>
+<!-- 
+    In Nested Trees, the nested nodes are actually nested in the DOM. These trees can be used if
+    we are sure that the depth of the tree is not too deep, since too manay nested dom elements can
+    cause performance issues.
+-->
+
+<mat-tree #nestedTree [dataSource]="nestedTreeDataSource" [childrenAccessor]="nestedTreeChildrenAccessor">
+    <!-- This is for leaf nodes. -->
+    <!-- We don't have to use hasNestedChild here, since it will be the default node template. -->
+    <!-- Putting matTreeNodeToggle here prevents collapsing of parent node by clicking on any of the leaf nodes.
+         Another solution is not to make the whole parent node clickable by removing matTreeNodeToggle from the
+         mat-nested-tree-node component. -->
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+        {{ node.name }}
+    </mat-tree-node>
+
+    <!-- This is for expandable nodes. -->
+    <mat-nested-tree-node matTreeNodeToggle *matTreeNodeDef="let node; when: hasNestedChild">
+        <div>
+            <button mat-icon-button matTreeNodeToggle>
+                <mat-icon>
+                    {{ nestedTree.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+                </mat-icon>
+            </button>
+
+            {{ node.name }}
+        </div>
+
+        <div class="nested-node" [class.hidden-node]="!nestedTree.isExpanded(node)">
+            <ng-container matTreeNodeOutlet></ng-container>
+        </div>
+    </mat-nested-tree-node>
+</mat-tree>
+
+<!-- 
+    In Flat Trees, the nested nodes are not nested in the DOM. So, they are more approprriate for trees
+    that may contain huge data, or the trees that can dynamically load indefinite number of elements via
+    infinite scroll. 
+-->
+
+<!-- For this flat tree, we assume we will get our data in a nested way from backend. 
+     Here, MatTree will automatically flatten the data for us.
+-->
+<h2>Flat Tree Demo</h2>
+
+<mat-tree #flatTree1 [dataSource]="nestedTreeNodes" [childrenAccessor]="nestedTreeChildrenAccessor">
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        <!-- We can use a disabled button to provide padding for tree leaf, since we're not using a
+             a div with ng-container for rendering the child nodes.
+         -->
+        <button mat-icon-button disabled></button>
+
+        {{ node.name }}
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node; when: hasNestedChild" matTreeNodeToggle matTreeNodePadding>
+        <button mat-icon-button matTreeNodeToggle>
+            <mat-icon>
+                {{ flatTree1.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+            </mat-icon>
+        </button>
+
+        {{ node.name }}
+
+        <!-- Note that we don't need matTreeNodeOutlet ng-container for falt trees. -->
+    </mat-tree-node>
+</mat-tree>
